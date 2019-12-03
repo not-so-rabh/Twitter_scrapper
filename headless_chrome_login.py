@@ -1,15 +1,22 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import os
 import time
 import getpass
 
 # taking username,phone or email as input
-username = input("Enter username,email or password")
-password = getpass.getpass("Enter your Password")
+username = input("Enter username,email or password\n")
+password = getpass.getpass("Enter your Password\n")
+
+# headless chrome
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
 
 # a new chrome session
-driver = webdriver.Chrome()
-driver.implicitly_wait(2)
-driver.maximize_window()
+driver = webdriver.Chrome(chrome_options=chrome_options)
+# driver.implicitly_wait(2)
+# driver.maximize_window()
 
 # navigatoe to the application home page
 driver.get("https://twitter.com/login")
@@ -30,6 +37,3 @@ password_field.clear()
 password_field.send_keys(password)
 time.sleep(1)
 password_field.submit()
-
-
-
